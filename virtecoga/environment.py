@@ -1,6 +1,6 @@
 from time import sleep
 
-from src.processor import Processor
+from virtecoga.processor import Processor
 
 
 class Environment:

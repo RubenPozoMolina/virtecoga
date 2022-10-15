@@ -1,11 +1,10 @@
-from argparse import Action
-
-from src.environment import Environment
-from src.living_being import LivingBeing
+from virtecoga.actions import Actions
+from virtecoga.living_being import LivingBeing
 
 
 class Processor:
-    environment: Environment
+
+    environment = None
 
     def __init__(self, environment):
         self.environment = environment
@@ -44,13 +43,13 @@ class Processor:
         return return_value
 
     def process_line(self, living_being, line):
-        if line.startswith(Action.MOVE):
+        if line.startswith(Actions.MOVE):
             self.environment.move(living_being, position=self.get_position(line))
-        elif line.startswith(Action.EAT):
+        elif line.startswith(Actions.EAT):
             self.environment.eat(living_being, quantity=10, filter=None)
-        elif line.startswith(Action.REPRODUCE):
-            self.environment.reproduce(Action.REPRODUCE, position=self.get_position(line))
-        elif line.startswith(Action.EXCRETE):
+        elif line.startswith(Actions.REPRODUCE):
+            self.environment.reproduce(Actions.REPRODUCE, position=self.get_position(line))
+        elif line.startswith(Actions.EXCRETE):
             self.environment.excrete(living_being, quantity=10, filter=None)
-        elif line.startswith(Action.DETECT):
+        elif line.startswith(Actions.DETECT):
             self.environment.detect(living_being, condition=True)
