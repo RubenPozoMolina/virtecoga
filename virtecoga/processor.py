@@ -29,17 +29,13 @@ class Processor:
     def get_position(line):
         x = 0
         y = 0
-        z = 0
         x_string = line[3:6]
         y_string = line[6:9]
-        z_string = line[9:12]
         if x_string.isnumeric():
             x = int(x_string)
         if y_string.isnumeric():
             y = int(y_string)
-        if z_string.isnumeric():
-            z = int(z_string)
-        return_value = (x, y, z)
+        return_value = (x, y)
         return return_value
 
     def process_line(self, living_being, line):
