@@ -1,6 +1,7 @@
 from time import sleep
 
 from virtecoga import LivingBeing
+from virtecoga.position import Position
 from virtecoga.processor import Processor
 
 
@@ -44,24 +45,30 @@ class Environment:
         self.living_being_index += 1
         return self.living_being_index
 
-    def add(self, position, content):
-        code = self.get_index()
-        living_being = LivingBeing(
-            code=code,
-            position=position,
-            content=content
-        )
-        self.living_beings.append(living_being)
+    def verify_position(self, position: Position):
+        return_value = False
+        if isinstance(position.x, int) and isinstance(position.y, int):
+            if 0 <= position.x < self.x:
+                if 0 <= position.y < self.y:
+                    return_value = True
+        return return_value
+
+    def add(self, position: Position, content):
+        code = None
+        if self.verify_position(position):
+            code = self.get_index()
+            living_being = LivingBeing(
+                code=code,
+                position=position,
+                content=content
+            )
+            self.living_beings.append(living_being)
         return code
 
-    def get(self, code):
+    def get(self, code) -> LivingBeing:
         return_value = None
         for living_being in self.living_beings:
             if living_being.code == code:
                 return_value = living_being
                 break
         return return_value
-
-
-
-
