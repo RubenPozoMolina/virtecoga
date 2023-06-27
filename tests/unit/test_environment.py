@@ -50,3 +50,9 @@ class TestEnvironment:
         content = value['content']
         living_being_code = environment.add(position, content)
         assert living_being_code == value['result']['code']
+
+    @pytest.mark.parametrize('value', beings_values)
+    def test_environment_get(self, environment, value):
+        being = environment.get(value['result']['code'])
+        if being:
+            assert being.content == value['content']
