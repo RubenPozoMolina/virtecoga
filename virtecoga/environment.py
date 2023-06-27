@@ -14,7 +14,7 @@ class Environment:
     y = 0
     living_being_index = 0
     living_beings = []
-    cycles = []
+    cycles = 0
     cycle_time = 0
     running = False
     processor = None
@@ -29,6 +29,8 @@ class Environment:
     def run(self):
         self.running = True
         while self.running:
+            self.processor.process_environment()
+            self.cycles += 1
             sleep(self.cycle_time)
 
     def begin(self):

@@ -1,4 +1,4 @@
-from virtecoga.actions import Actions
+from virtecoga import actions
 from virtecoga.living_being import LivingBeing
 
 
@@ -14,7 +14,7 @@ class Processor:
             self.process_living_being(living_being)
 
     def process_living_being(self, living_being: LivingBeing):
-        for line in living_being.code:
+        for line in living_being.content:
             self.process_line(living_being, line)
 
     @staticmethod
@@ -39,13 +39,13 @@ class Processor:
         return return_value
 
     def process_line(self, living_being, line):
-        if line.startswith(Actions.MOVE):
+        if line.startswith(actions.MOVE):
             self.environment.move(living_being, position=self.get_position(line))
-        elif line.startswith(Actions.EAT):
+        elif line.startswith(actions.EAT):
             self.environment.eat(living_being, quantity=10, filter=None)
-        elif line.startswith(Actions.REPRODUCE):
-            self.environment.reproduce(Actions.REPRODUCE, position=self.get_position(line))
-        elif line.startswith(Actions.EXCRETE):
+        elif line.startswith(actions.REPRODUCE):
+            self.environment.reproduce(actions.REPRODUCE, position=self.get_position(line))
+        elif line.startswith(actions.EXCRETE):
             self.environment.excrete(living_being, quantity=10, filter=None)
-        elif line.startswith(Actions.DETECT):
+        elif line.startswith(actions.DETECT):
             self.environment.detect(living_being, condition=True)

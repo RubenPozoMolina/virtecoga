@@ -62,7 +62,9 @@ class TestEnvironment:
     def test_environment_begin(self, environment):
         environment.begin()
         assert environment.running
+        sleep(2)
         environment.end()
         assert not environment.running
+        assert environment.cycles == 1
 
 
