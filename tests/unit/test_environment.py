@@ -1,4 +1,6 @@
 import json
+from time import sleep
+
 import pytest
 from virtecoga import Environment
 from virtecoga.position import Position
@@ -56,3 +58,11 @@ class TestEnvironment:
         being = environment.get(value['result']['code'])
         if being:
             assert being.content == value['content']
+
+    def test_environment_begin(self, environment):
+        environment.begin()
+        assert environment.running
+        environment.end()
+        assert not environment.running
+
+

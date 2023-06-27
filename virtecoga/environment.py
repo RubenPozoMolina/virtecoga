@@ -1,8 +1,12 @@
+import threading
 from time import sleep
 
 from virtecoga import LivingBeing
 from virtecoga.position import Position
 from virtecoga.processor import Processor
+
+DEFAULT_MAX_X = 100
+DEFAULT_MAX_Y = 100
 
 
 class Environment:
@@ -14,17 +18,26 @@ class Environment:
     cycle_time = 0
     running = False
     processor = None
+    running_thread = None
 
-    def __init__(self, size=(100, 100), cycle_time=1):
+    def __init__(self, size=(DEFAULT_MAX_X, DEFAULT_MAX_Y), cycle_time=1):
         self.x = size[0]
         self.y = size[1]
         self.cycle_time = cycle_time
         self.processor = Processor(self)
 
-    def begin(self):
-        self.running = False
+    def run(self):
+        self.running = True
         while self.running:
             sleep(self.cycle_time)
+
+    def begin(self):
+        self.running_thread = threading.Thread(target=self.run)
+        self.running_thread.start()
+
+    def end(self):
+        self.running = False
+        self.running_thread.join()
 
     def move(self, living_being, position):
         pass
